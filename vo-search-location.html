@@ -1,0 +1,153 @@
+<!--
+@license
+Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../polymer/polymer-element.html">
+<link rel="import" href="../vo-jsonp/vo-jsonp.html">
+<link rel="import" href="../iron-icons/iron-icons.html">
+<link rel="import" href="../iron-icon/iron-icon.html">
+<link rel="import" href="../vaadin-combo-box/vaadin-combo-box.html">
+<link rel="import" href="../paper-icon-button/paper-icon-button.html">
+
+<dom-module id="vo-search-location">
+    <template>
+        <style>
+            :host {
+                display: block;
+
+                padding: 10px;
+            }
+
+            vaadin-combo-box{
+                width: 100%;
+            }
+        </style>
+
+        <div>
+
+            <vaadin-combo-box
+                    id="searchField"
+                    filter="{{filter}}"
+                    placeholder="Zoek een plaats of adres"
+                    on-selected-item-changed="computeLocationParams"
+                    items="{{locatieSuggtions}}">
+
+
+                <paper-icon-button
+                        slot="prefix"
+                        icon="search"
+                        class="toggle-button"></paper-icon-button>
+
+            </vaadin-combo-box>
+
+            <!--suggestions-->
+            <vo-jsonp
+                    id="xhrSuggestion"
+                    url="[[baseUrl]]/suggestion"
+                    params="{{paramSuggestion}}"
+                    handle-as="json"
+                    on-last-response-changed="handleSearchResponse"
+                    auto="true"></vo-jsonp>
+            <!--find the location-->
+            <vo-jsonp
+                    auto
+                    url="[[baseUrl]]/location"
+                    params="{{paramLocation}}"
+                    handle-as="json"
+                    on-last-response-changed="handleResponse"
+                    debounce-duration="300"></vo-jsonp>
+        </div>
+    </template>
+
+    <script>
+        class DovSearchLocation extends Polymer.Element {
+            static get is() {
+                return 'vo-search-location';
+            }
+
+            static get properties() {
+                return {
+                    baseUrl: {
+                        type: String,
+                        value: "http://loc.geopunt.be/geolocation/"
+                    },
+                    latitude: {
+                        type: Number,
+                        notify: true
+                    },
+                    longitude: {
+                        type: Number,
+                        notify: true
+                    },
+                    paramSuggestion: {
+                        type: Object,
+                        computed: 'computeSuggestionParams(filter)'
+                    },
+                    paramLocation: {
+                        type: Object,
+                        value: function () {
+                            return {};
+                        }
+                    },
+                    locatieSuggtions: {
+                        type: Array
+                    }
+
+                };
+            }
+
+            handleResponse(event, object, other, oth) {
+                if (object
+                        && object.value
+                        && object.value.LocationResult
+                        && object.value.LocationResult[0]
+                ) {
+                   /* console.log("Crab geolocation lat " + object.value.LocationResult[0].Location.Lat_WGS84)
+                    console.log("Crab geolocation lon " + object.value.LocationResult[0].Location.Lon_WGS84)*/
+                    this.latitude = object.value.LocationResult[0].Location.Lat_WGS84;
+                    this.longitude = object.value.LocationResult[0].Location.Lon_WGS84;
+                }
+            }
+
+            handleSearchResponse(event, object, other, oth) {
+                if (object
+                        && object.value
+                        && object.value.SuggestionResult
+                ) {
+                    //console.log("Search suggestions...");
+                    this.locatieSuggtions = object.value.SuggestionResult;
+                }
+            }
+
+            computeLocationParams(object) {
+                console.log("computeLocationParams " + object.detail.value);
+                this.paramLocation = {
+                    'q': object.detail.value,
+                    'c': 10
+                }
+
+            }
+
+            computeSuggestionParams(object) {
+                console.log("computeSuggestionParams " + object);
+                if (object != "") {
+                    return {
+                        'q': object,
+                        'c': 10
+                    }
+                }
+            }
+
+
+        }
+
+
+        window.customElements.define(DovSearchLocation.is, DovSearchLocation);
+    </script>
+</dom-module>
