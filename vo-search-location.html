@@ -53,6 +53,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                     params="{{paramSuggestion}}"
                     handle-as="json"
                     on-last-response-changed="handleSearchResponse"
+                    debounce-duration="300"
                     auto="true"></vo-jsonp>
             <!--find the location-->
             <vo-jsonp
@@ -75,7 +76,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 return {
                     baseUrl: {
                         type: String,
-                        value: "http://loc.geopunt.be/geolocation/"
+                        value: "https://loc.geopunt.be/geolocation/"
                     },
                     latitude: {
                         type: Number,
