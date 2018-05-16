@@ -24,7 +24,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 padding: 10px;
             }
 
-            vaadin-combo-box{
+            vaadin-combo-box {
                 width: 100%;
             }
         </style>
@@ -34,6 +34,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             <vaadin-combo-box
                     id="searchField"
                     filter="{{filter}}"
+                    value="{{selectedValue}}"
                     placeholder="Zoek een plaats of adres"
                     on-selected-item-changed="computeLocationParams"
                     items="{{locatieSuggtions}}">
@@ -42,7 +43,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 <paper-icon-button
                         slot="prefix"
                         icon="search"
-                        class="toggle-button"></paper-icon-button>
+                        class="toggle-button"
+                        on-click="computeLocationParams"></paper-icon-button>
 
             </vaadin-combo-box>
 
@@ -109,10 +111,18 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                         && object.value.LocationResult
                         && object.value.LocationResult[0]
                 ) {
-                   /* console.log("Crab geolocation lat " + object.value.LocationResult[0].Location.Lat_WGS84)
-                    console.log("Crab geolocation lon " + object.value.LocationResult[0].Location.Lon_WGS84)*/
+                    /* console.log("Crab geolocation lat " + object.value.LocationResult[0].Location.Lat_WGS84)
+                     console.log("Crab geolocation lon " + object.value.LocationResult[0].Location.Lon_WGS84)*/
                     this.latitude = object.value.LocationResult[0].Location.Lat_WGS84;
                     this.longitude = object.value.LocationResult[0].Location.Lon_WGS84;
+
+                    this.dispatchEvent(new CustomEvent('search-location-changed',
+                            {
+                                detail: {
+                                    latitude: this.latitude,
+                                    longitude: this.longitude
+                                }
+                            }));
                 }
             }
 
@@ -127,16 +137,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             }
 
             computeLocationParams(object) {
-                console.log("computeLocationParams " + object.detail.value);
+                this.$.searchField.value
+                //console.log("computeLocationParams " + this.$.searchField.value);
                 this.paramLocation = {
-                    'q': object.detail.value,
+                    'q': this.$.searchField.value,
                     'c': 10
                 }
 
             }
 
             computeSuggestionParams(object) {
-                console.log("computeSuggestionParams " + object);
+                //console.log("computeSuggestionParams " + object);
                 if (object != "") {
                     return {
                         'q': object,
