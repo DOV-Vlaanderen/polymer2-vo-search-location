@@ -1,0 +1,25 @@
+{
+  "name": "polymer2-vo-search-location",
+  "version": "0.0.1",
+  "description": "Suggest adres locations based on the crab service.",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/timothy-debock/polymer2-vo-search-location.git"
+  },
+  "keywords": [
+    "polymer2"
+  ],
+  "author": "Timothy De Bock",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/timothy-debock/polymer2-vo-search-location/issues"
+  },
+  "homepage": "https://github.com/timothy-debock/polymer2-vo-search-location#readme"
+}
