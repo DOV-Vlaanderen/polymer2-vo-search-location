@@ -1,5 +1,5 @@
 {
-  "name": "polymer2-vo-search-location",
+  "name": "vo-search-location",
   "version": "0.0.1",
   "description": "Suggest adres locations based on the crab service.",
   "main": "index.js",
