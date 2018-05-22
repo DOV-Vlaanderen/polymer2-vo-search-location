@@ -35,6 +35,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                     id="searchField"
                     filter="{{filter}}"
                     value="{{selectedValue}}"
+                    allow-custom-value="[[allowCustomValue]]"
                     placeholder="Zoek een plaats of adres"
                     on-selected-item-changed="computeLocationParams"
                     items="{{locatieSuggtions}}">
@@ -102,12 +103,20 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                         type: Array
                     },
                     /**
-                     * If true, the element won't be active at all.
+                     * If true, the element will have focus.
                      */
                     focus: {
                         type: Boolean,
                         value: false,
                         observer: '_setFocus'
+                    },
+                    /**
+                     * If true, the user is not required so select a value from the list.
+                     * (Enter-key will close the suggestions)
+                     */
+                    allowCustomValue: {
+                        type: Boolean,
+                        value: false
                     }
 
                 };
