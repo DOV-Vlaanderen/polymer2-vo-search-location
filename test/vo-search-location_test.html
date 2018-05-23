@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+    <title>hello-element test</title>
+
+    <script src="../../webcomponentsjs/webcomponents-loader.js"></script>
+    <script src="../../web-component-tester/browser.js"></script>
+
+    <link rel="import" href="../vo-search-location.html">
+  </head>
+  <body>
+    <!---->
+    <test-fixture id="BasicTestFixture">
+      <template>
+        <vo-search-location on-search-location-changed="handleSearchLocationChange"
+                            allow-custom-value="true"
+                            focus="true">
+        </vo-search-location>
+      </template>
+    </test-fixture>
+
+    <script>
+      suite('vo-search-location', () => {
+
+        test('Search works and shows suggestions', (done) => {
+          let element = fixture('BasicTestFixture');
+          let comboBox = Polymer.dom(element.root).querySelector('vaadin-combo-box')
+          //let comboBox = element.shadowRoot.querySelector('vaadin-combo-box');
+          comboBox.close();
+
+          setInputValue(comboBox, 'Ge');
+
+          expect(comboBox.opened).to.equal(true);
+          //expect(comboBox.getFilteredItems().length).to.not.equal(0);
+          setTimeout(() => {
+            const list = Polymer.dom(Polymer.dom(Polymer.dom(document).querySelector('vaadin-combo-box-overlay').root).querySelector('#content').root).querySelector('iron-list');
+            expect(list.children.length).to.equal(4)
+            done();
+          }, 5000);
+        });
+
+
+      });
+
+      function setInputValue(box, value) {
+        box.inputElement.value = value;
+        box.inputElement.dispatchEvent(new CustomEvent('input'));
+      }
+    </script>
+
+  </body>
+</html>
