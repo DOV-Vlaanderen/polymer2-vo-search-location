@@ -10,11 +10,12 @@
 
     <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
     <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+    <link rel="import" href="../../vaadin-lumo-styles/color.html">
     <link rel="import" href="../vo-search-location.html">
 
 
     <custom-style>
-      <style is="custom-style" include="demo-pages-shared-styles">
+      <style is="custom-style" include="demo-pages-shared-styles lumo-color">
       </style>
     </custom-style>
   </head>
@@ -26,6 +27,22 @@
           <dom-bind><!-- add polymer databinding-->
             <template>
               <vo-search-location latitude="{{latitude}}" longitude="{{longitude}}" focus="true"></vo-search-location>
+              <h4>Result</h4>
+
+              <div>
+                <p>lat: [[latitude]]</p>
+                <p>long: [[longitude]]</p>
+              </div>
+            </template>
+          </dom-bind>
+        </template>
+      </demo-snippet>
+      <h3>Basic vo-search-location demo</h3>
+      <demo-snippet  theme="dark">
+        <template>
+          <dom-bind><!-- add polymer databinding-->
+            <template>
+              <vo-search-location latitude="{{latitude}}" longitude="{{longitude}}"></vo-search-location>
               <h4>Result</h4>
 
               <div>

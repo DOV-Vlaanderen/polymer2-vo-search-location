@@ -10,44 +10,91 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <link rel="import" href="../polymer/polymer-element.html">
 <link rel="import" href="../vo-jsonp/vo-jsonp.html">
-<link rel="import" href="../iron-icons/iron-icons.html">
-<link rel="import" href="../iron-icon/iron-icon.html">
-<link rel="import" href="../vaadin-combo-box/vaadin-combo-box.html">
+<link rel="import" href="../vaadin-combo-box/vaadin-combo-box-light.html">
 <link rel="import" href="../paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../paper-input/paper-input.html">
+<link rel="import" href="./vo-search-location-icons.html">
+<link rel="import" href="../vaadin-lumo-styles/color.html">
+<link rel="import" href="../vaadin-lumo-styles/style.html">
 
 <dom-module id="vo-search-location">
     <template>
-        <style>
+        <style include="lumo-color">
             :host {
                 display: block;
+                background-color: var(--lumo-base-color);
+                padding: 4px;
 
-                padding: 8px;
             }
 
-            vaadin-combo-box {
+            vaadin-combo-box-light {
                 width: 100%;
             }
+            paper-input-container {
+                --paper-input-container-color: red;
+                --paper-input-container-focus-color: blue;
+                --paper-input-container-invalid-color: green;
+                --paper-input-container-input-color: black;
+            }
+
+            paper-input {
+                color: var(--lumo-body-text-color);
+                /* Label and underline color when the input is not focused */
+                --paper-input-container-color: var(--lumo-body-text-color);
+                /* Label and underline color when the input is focused */
+                --paper-input-container-focus-color: var(--lumo-secondary-text-color);
+                /* Label and underline color when the input is invalid */
+                --paper-input-container-invalid-color: var(--lumo-error-text-color);
+
+                /* Input foreground color */
+                --paper-input-container-input-color: var(--lumo-body-text-color);
+
+                --paper-input-container-color: var(--lumo-body-text-color);
+                background-color: var(--lumo-contrast-10pct);
+                border-radius: var(--lumo-border-radius);
+                padding: 0 calc(0.375em + var(--lumo-border-radius) / 4 - 1px);
+            /* hide underline in all states */
+            /*--paper-input-container-underline: {
+                 display: none
+             }
+            --paper-input-container-underline-focus: {
+                 display: none
+             }
+            --paper-input-container-underline-disabled: {
+                 display: none
+             }*/
+            }
+
         </style>
 
         <div>
 
-            <vaadin-combo-box
-                    id="searchField"
-                    filter="{{filter}}"
-                    value="{{selectedValue}}"
-                    allow-custom-value="[[allowCustomValue]]"
-                    placeholder="Zoek een plaats of adres"
-                    on-selected-item-changed="computeLocationParams"
-                    items="{{locatieSuggtions}}">
+            <vaadin-combo-box-light id="searchField"
+                                    filter="{{filter}}"
+                                    value="{{selectedValue}}"
+                                    allow-custom-value="[[allowCustomValue]]"
+                                    placeholder="Zoek een plaats of adres"
+                                    on-selected-item-changed="computeLocationParams"
+                                    items="{{locatieSuggtions}}">
+                <paper-input id="input"
+                             no-label-float
+                             label="Zoek een plaats of adres"
+                        >
 
+                    <paper-icon-button
+                            slot="prefix"
+                            icon="vo-search-location-icons:search"
+                            class="toggle-button"
+                            on-click="computeLocationParams"></paper-icon-button>
+                    <paper-icon-button
+                            slot="suffix"
+                            icon="vo-search-location-icons:clear"
+                            class="clear-button"
+                            ></paper-icon-button>
 
-                <paper-icon-button
-                        slot="prefix"
-                        icon="search"
-                        class="toggle-button"
-                        on-click="computeLocationParams"></paper-icon-button>
-
-            </vaadin-combo-box>
+                    <!--<paper-button slot="suffix" class="clear-button">Clear</paper-button>-->
+                </paper-input>
+            </vaadin-combo-box-light>
 
             <!--suggestions-->
             <vo-jsonp
@@ -176,7 +223,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
             _setFocus(newValue, oldValue) {
                 if (newValue) {
-                    this.$.searchField.$.input.focus()
+                    this.$.input.focus()
                 }
             }
 
