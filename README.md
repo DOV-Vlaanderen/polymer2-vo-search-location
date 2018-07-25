@@ -1,6 +1,16 @@
 # \<vo-search-location\>
 
-Find location using the geopunt services
+Find lat-long location for an address using the [AGIV Geolocation API](https://loc.geopunt.be/).
+
+Example:
+
+```html
+    <vo-search-location
+        latitude="{{latitude}}"
+        longitude="{{longitude}}"
+        focus="true">
+    </vo-search-location>
+```
 
 ## Install the Polymer-CLI
 

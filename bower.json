@@ -2,6 +2,9 @@
   "name": "vo-search-location",
   "description": "Find location using the geopunt services",
   "main": "vo-search-location.html",
+  "authors": [
+    "Timothy De Bock"
+  ],
   "dependencies": {
     "polymer": "Polymer/polymer#^2.0.0",
     "paper-icon-button": "^2.2.0",
