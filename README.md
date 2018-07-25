@@ -2,6 +2,8 @@
 
 Find lat-long location for an address using the [AGIV Geolocation API](https://loc.geopunt.be/).
 
+![example](https://github.com/DOV-Vlaanderen/polymer2-vo-search-location/blob/assets/assets/images/vo-search-crab.png?raw=true)
+
 Example:
 
 ```html
