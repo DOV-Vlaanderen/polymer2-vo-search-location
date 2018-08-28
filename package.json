@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/timothy-debock/polymer2-vo-search-location.git"
+    "url": "git+https://github.com/DOV-Vlaanderen/polymer2-vo-search-location.git"
   },
   "keywords": [
     "polymer2"
@@ -19,7 +19,7 @@
   "author": "Timothy De Bock",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/timothy-debock/polymer2-vo-search-location/issues"
+    "url": "https://github.com/DOV-Vlaanderen/polymer2-vo-search-location/issues"
   },
-  "homepage": "https://github.com/timothy-debock/polymer2-vo-search-location#readme"
+  "homepage": "https://github.com/DOV-Vlaanderen/polymer2-vo-search-location#readme"
 }
