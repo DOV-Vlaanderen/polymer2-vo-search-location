@@ -201,13 +201,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             }
 
             computeLocationParams(object) {
-                this.$.searchField.value
-                //console.log("computeLocationParams " + this.$.searchField.value);
-                this.paramLocation = {
-                    'q': this.$.searchField.value,
-                    'c': 10
+                if (object && object.detail && object.detail.value && object.detail.value != null)  {
+                    //console.log('computeLocationParams this.$.searchField.value is', this.$.searchField.value);
+                    this.paramLocation = {
+                        'q': this.$.searchField.value,
+                        'c': 10
+                    }
                 }
-
             }
 
             computeSuggestionParams(object) {
