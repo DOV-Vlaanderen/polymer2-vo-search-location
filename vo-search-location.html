@@ -10,7 +10,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <link rel="import" href="../polymer/polymer-element.html">
 <link rel="import" href="../vo-jsonp/vo-jsonp.html">
-<link rel="import" href="../vaadin-combo-box/vaadin-combo-box-light.html">
+<link rel="import" href="vaadin/dov-combo-box.html">
 <link rel="import" href="../paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../paper-input/paper-input.html">
 <link rel="import" href="./vo-search-location-icons.html">
@@ -27,7 +27,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
             }
 
-            vaadin-combo-box-light {
+            dov-combo-box {
                 width: 100%;
             }
             paper-input-container {
@@ -69,7 +69,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
         <div>
 
-            <vaadin-combo-box-light id="searchField"
+            <dov-combo-box id="searchField"
                                     filter="{{filter}}"
                                     value="{{selectedValue}}"
                                     allow-custom-value="[[allowCustomValue]]"
@@ -94,7 +94,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
                     <!--<paper-button slot="suffix" class="clear-button">Clear</paper-button>-->
                 </paper-input>
-            </vaadin-combo-box-light>
+            </dov-combo-box>
 
             <!--suggestions-->
             <vo-jsonp
