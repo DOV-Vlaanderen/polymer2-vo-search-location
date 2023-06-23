@@ -1,6 +1,6 @@
 {
   "name": "vo-search-location",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Suggest adres locations based on the crab service.",
   "main": "index.js",
   "directories": {
