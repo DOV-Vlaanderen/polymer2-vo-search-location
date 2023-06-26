@@ -1,3 +1,7 @@
+0.0.4
+0.0.3
+======
+* Update the https://geo.api.vlaanderen.be/geolocation url
 0.0.2
 ======
 * Suggestions list is always aligned above the input (vaadin component bug, 'alignedAbove' property can not be changed)
